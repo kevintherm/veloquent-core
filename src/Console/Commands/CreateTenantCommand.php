@@ -153,7 +153,7 @@ class CreateTenantCommand extends Command
         }
 
         $this->error("The [tenants] table does not exist on the [{$landlordConnectionName}] connection.");
-        $this->line('Run: vendor/bin/sail artisan migrate --database=landlord --path=database/migrations/landlord --no-interaction');
+        $this->line('Run: php artisan migrate --database=landlord --path=database/migrations/landlord --no-interaction');
 
         return false;
     }

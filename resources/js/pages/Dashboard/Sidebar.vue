@@ -7,6 +7,7 @@ import { Button, Input } from "@/components/ui"
 import Collapsible from "@/components/ui/collapsible/Collapsible.vue";
 import CollapsibleTrigger from "@/components/ui/collapsible/CollapsibleTrigger.vue";
 import CollapsibleContent from "@/components/ui/collapsible/CollapsibleContent.vue";
+import { VELO_CONFIG } from "@/lib/config";
 
 const props = defineProps({
     activeCollection: {
@@ -80,7 +81,8 @@ watch(
 <template>
     <aside class="w-64 border-r bg-card flex flex-col h-full">
         <div class="p-6 gap-2">
-            <img :src="window.VELO_CONFIG?.logo_url || '/logo.svg'" alt="Velo Logo" class="h-8 w-8" draggable="false" />
+            <img :src="VELO_CONFIG?.logo_url || '/vendor/velo/logo.svg'" alt="Velo Logo" class="h-8 w-8"
+                draggable="false" />
         </div>
 
         <nav class="flex-1 overflow-y-auto px-4 space-y-1">
@@ -173,7 +175,8 @@ watch(
                     <LogOut class="h-4 w-4" />
                     Logout
                 </Button>
-                <Button @click="toggleDark()" variant="ghost" size="icon" class="h-9 w-9 text-muted-foreground" title="Toggle theme">
+                <Button @click="toggleDark()" variant="ghost" size="icon" class="h-9 w-9 text-muted-foreground"
+                    title="Toggle theme">
                     <Sun v-if="isDark" class="h-4 w-4" />
                     <Moon v-else class="h-4 w-4" />
                 </Button>

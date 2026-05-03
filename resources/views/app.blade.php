@@ -7,13 +7,13 @@
     <title>{{ config('app.name') }}</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('vendor/velo/favicon.ico') }}">
     <link rel="icon" type="image/svg+xml" href="{{ asset('vendor/velo/logo.svg') }}">
-    <script>
-        window.VELO_CONFIG = {
-            api_prefix: '{{ config('velo.api_prefix', 'api') }}',
-            admin_prefix: '{{ config('velo.admin_prefix', 'admin') }}',
-            logo_url: '{{ asset('vendor/velo/logo.svg') }}',
-        };
-    </script>
+    <meta name="velo-config" content="{{ json_encode([
+        'api_prefix' => config('velo.api_prefix', 'api'),
+        'admin_prefix' => config('velo.admin_prefix', 'admin'),
+        'logo_url' => asset('vendor/velo/logo.svg'),
+    ]) }}">
+
+
     @vite(['resources/css/app.css', 'resources/js/app.js'], 'vendor/velo')
 </head>
 

@@ -2,11 +2,12 @@ import axios from 'axios';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { getAuthToken } from './lib/tokenAuth';
+import { VELO_CONFIG } from './lib/config';
 
 window.axios = axios;
 window.Pusher = Pusher;
 
-const apiPrefix = window.VELO_CONFIG?.api_prefix || 'api';
+const apiPrefix = VELO_CONFIG.api_prefix || 'api';
 window.axios.defaults.baseURL = `/${apiPrefix}`;
 
 window.axios.interceptors.request.use((config) => {

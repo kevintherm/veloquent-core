@@ -13,8 +13,14 @@ class CachedDomainTenantFinder extends TenantFinder
     {
         $host = $request->getHost();
 
-        return Cache::rememberForever("tenant_domain_{$host}", function () use ($host) {
-            return app(IsTenant::class)::whereDomain($host)->first();
+        $tenantId = Cache::rememberForever("tenant_id_domain_{$host}", function () use ($host) {
+            return app(IsTenant::class)::whereDomain($host)->value('id');
         });
+
+        if (! $tenantId) {
+            return null;
+        }
+
+        return app(IsTenant::class)::find($tenantId);
     }
 }

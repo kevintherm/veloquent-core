@@ -12,6 +12,7 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useAuth } from "@/lib/auth";
 import { isOnboardingInitialized } from "@/lib/onboarding";
+import { VELO_CONFIG } from "@/lib/config";
 
 const router = useRouter();
 const { fetchUser, login } = useAuth();
@@ -53,7 +54,7 @@ const handleSubmit = async () => {
     <Card class="w-full max-w-md">
       <CardHeader>
         <div class="flex justify-center mb-4">
-          <img :src="'/logo.svg'" alt="Velo Logo" class="h-12 w-12" />
+          <img :src="VELO_CONFIG?.logo_url || '/vendor/velo/logo.svg'" alt="Velo Logo" class="h-12 w-12" />
         </div>
         <CardTitle class="text-center">Login</CardTitle>
       </CardHeader>

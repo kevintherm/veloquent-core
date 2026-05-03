@@ -57,10 +57,11 @@ class InstallCommand extends Command
         $this->components->task('Running landlord migrations...', function () {
             $this->call('migrate', [
                 '--path' => 'database/migrations/landlord',
+                '--force' => $this->option('force'),
             ]);
         });
 
-        if ($this->confirm('Would you like to create your first tenant?', true)) {
+        if ($this->confirm('Would you like to create your first tenant?', true) || $this->option('--force')) {
             $name = $this->ask('Tenant Name', 'Acme');
             $domain = $this->ask('Tenant Domain', 'localhost');
 
@@ -70,6 +71,6 @@ class InstallCommand extends Command
             ]);
         }
 
-        $this->components->info('Veloquent Core installed successfully!');
+        $this->components->info('Veloquent installed successfully!');
     }
 }

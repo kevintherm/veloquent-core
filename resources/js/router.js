@@ -8,6 +8,7 @@ import LogsOverview from './pages/Logs/LogsOverview.vue'
 import { useAuth } from './lib/auth'
 import { isOnboardingInitialized } from './lib/onboarding'
 import { getAuthToken } from './lib/tokenAuth'
+import { VELO_CONFIG } from './lib/config'
 
 const routes = [
   { path: '/', component: Dashboard },
@@ -22,7 +23,7 @@ const routes = [
   }
 ]
 
-const adminPrefix = window.VELO_CONFIG?.admin_prefix || '/';
+const adminPrefix = VELO_CONFIG.admin_prefix || '/';
 const routerBase = adminPrefix.startsWith('/') ? adminPrefix : `/${adminPrefix}`;
 
 const router = createRouter({

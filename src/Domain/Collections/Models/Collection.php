@@ -58,11 +58,20 @@ class Collection extends Model
         $ttl = config('velo.collection_cache_ttl');
         $key = "velo:collection:id:{$id}";
 
-        $callback = fn () => self::find($id);
+        $cached = Cache::get($key);
+        if ($cached instanceof self) {
+            return $cached;
+        }
 
-        return $ttl > 0
-            ? Cache::remember($key, $ttl, $callback)
-            : Cache::rememberForever($key, $callback);
+        $collection = self::find($id);
+
+        if ($collection) {
+            $ttl > 0
+                ? Cache::put($key, $collection, $ttl)
+                : Cache::forever($key, $collection);
+        }
+
+        return $collection;
     }
 
     public static function findByNameCached(string $name): ?self
@@ -70,12 +79,22 @@ class Collection extends Model
         $ttl = config('velo.collection_cache_ttl');
         $key = "velo:collection:name:{$name}";
 
-        $callback = fn () => self::where('name', $name)->first();
+        $cached = Cache::get($key);
+        if ($cached instanceof self) {
+            return $cached;
+        }
 
-        return $ttl > 0
-            ? Cache::remember($key, $ttl, $callback)
-            : Cache::rememberForever($key, $callback);
+        $collection = self::where('name', $name)->first();
+
+        if ($collection) {
+            $ttl > 0
+                ? Cache::put($key, $collection, $ttl)
+                : Cache::forever($key, $collection);
+        }
+
+        return $collection;
     }
+
 
     public function clearCache(): void
     {
